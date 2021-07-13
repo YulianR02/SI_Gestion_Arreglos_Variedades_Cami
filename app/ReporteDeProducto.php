@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ReporteProducto extends Model
+class ReporteDeProducto extends Model
 {
     //Creacion modelo Reporte de Producto
     protected $table = "reporteproductos";
