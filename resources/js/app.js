@@ -4,7 +4,6 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
 
 window.Vue = require('vue');
 
@@ -27,6 +26,35 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
+const apiproduct = new Vue({
+    el: '#apiproduct',
+    methods:{
+        eliminarimagen(imagen){
+            Swal.fire({
+                title: '¿Estas seguro de eliminar la imagen?'+imagen.id+'?',
+                text: "No podras revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, Eliminar!',
+                cancelButtonText: 'Cancelar',
+            }).then((result) => {
+                if(result.value){
+                    let url = '/api/eliminarimagen/{imagen.id}';
+                    axios.delete(url).then(response=>{
+                        console.log(response.data);
+                    });
+                    //Eliminar elemento
+                    var elemento = document.getElementById('idimagen-'+imagen.id);
+                    elemento.parentNode.removeChild(elemento);
+                    Swal.fire(
+                        'Eliminado!',
+                        'Su archivo ha sido eliminado.',
+                        'Success'
+                    )
+                }
+            })
+        }
+    }
 });
