@@ -14,11 +14,12 @@
   <!-- Font Awesome -->
   {!! Html::style('adminlte/plugins/fontawesome-free/css/all.min.css') !!}
   <!-- Ionicons -->
-  {!! Html::style('adminlte//plugins/ekko-lightbox/ekko-lightbox.css') !!}
+  {!! Html::style('adminlte/plugins/ekko-lightbox/ekko-lightbox.css') !!}
 
+  {!! Html::style('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.css') !!}
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- overlayScrollbars -->
-  {!! Html::style('adminlte/dist/css/adminlte.min.css') !!}
+  {!! Html::style('adminlte/dist/css/adminlte.css') !!}
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   @yield('style')
@@ -145,14 +146,35 @@
           <i class="fas fa-th-large"></i>
         </a>
       </li>
+       @guest
+        @else
+            <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->name }}
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
+            </li>
+        @endguest
+
     </ul>
   </nav>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sde sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="../../index3.html" class="brand-link">
+    <a href="\marazzo\assets\images\log.png" class="brand-link">
       <img src="{!!asset('adminlte/dist/img/AdminLTELogo.png')!!}"
            alt="AdminLTE Logo"
            class="brand-image img-circle elevation-3"
@@ -168,7 +190,7 @@
           <img src="{!!asset('adminlte/dist/img/user2-160x160.jpg')!!}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          {{--  <a href="#" class="d-block">{!! Auth::user()->name !!}</a>  --}}
+           <a href="#" class="d-block">{!! Auth::user()->name !!}</a>
         </div>
       </div>
 
@@ -180,7 +202,7 @@
 
 
 
-          {{--  <li class="nav-item has-treeview">
+           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -190,13 +212,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{route('homes.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard</p>
                 </a>
               </li>
             </ul>
-          </li>  --}}
+          </li>
 
 
 
@@ -295,13 +317,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('posts.create')}}" class="nav-link">
+                <a href="{{route('arreglos.create')}}" class="nav-link">
                   <i class="far fas fa-plus nav-icon"></i>
                   <p>Crear</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('posts.index')}}" class="nav-link">
+                <a href="{{route('arreglos.index')}}" class="nav-link">
 
                     <i class="far fas fa-list nav-icon"></i>
 
@@ -337,56 +359,6 @@
               </li>
             </ul>
           </li>
-          {{-- Programas   --}}
-          {{--  <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-hourglass-start"></i>
-              <p>
-                Programas
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('programs.create')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Crear</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('programs.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Lista</p>
-                </a>
-              </li>
-            </ul>
-          </li>  --}}
-           {{-- Videos  --}}
-           {{--  <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-video"></i>
-              <p>
-                Videos
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('videos.create')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Crear</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('videos.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Lista</p>
-                </a>
-              </li>
-            </ul>
-          </li>  --}}
-
-
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

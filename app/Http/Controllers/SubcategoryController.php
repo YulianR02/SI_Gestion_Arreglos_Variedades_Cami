@@ -10,6 +10,10 @@ use Illuminate\Support\Str;
 
 class SubcategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth','verified']);
+    }
     public function index()
     {
         //Creation list of subcategories

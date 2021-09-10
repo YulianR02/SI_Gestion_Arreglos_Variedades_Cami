@@ -103,20 +103,20 @@
           <div class="card my-4">
             <h5 class="card-header">Deja un comentario:</h5>
             <div class="card-body">
-              
+
               {!! Form::open(['route'=>'productComment.add', 'method'=>'POST']) !!}
                 <div class="form-group">
                   <input type="hidden" name="product_id" value="{{$product->id}}">
                   <textarea class="form-control" name="body" rows="3"></textarea>
                 </div>
-                
+
                 <input type="submit" class="btn btn-primary" value="Enviar">
               {!! Form::close() !!}
             </div>
           </div>
-      
+
       @include('admin.products._replies',['comments'=>$product->comments, 'product_id'=>$product->id])
-      
+
         </div>
     </div>
     </div>

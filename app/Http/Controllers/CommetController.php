@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Auth;
 class CommetController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware(['auth','verified']);
+    }
+    
     public function productStore(Request $request)
     {
         //creation store by comments

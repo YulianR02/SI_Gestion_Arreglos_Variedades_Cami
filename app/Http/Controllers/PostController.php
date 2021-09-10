@@ -13,7 +13,7 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth','verified']);
     }
 
 
@@ -107,9 +107,6 @@ class PostController extends Controller
         $post->abstract = e($request->abstract);
         $post->body = e($request->body);
         $post->status = e($request->status);
-        if($request->hasFile('image')){
-            $post->image()->delete();
-        }
         $post->save();
         if($request->hasFile('image')){
             $post->image()->create($urlimage);
