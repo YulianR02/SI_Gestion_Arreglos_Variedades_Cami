@@ -1,147 +1,112 @@
-@extends('layouts.admin')
+@extends('layouts._admin')
 @section('title', 'Gestión de usuarios')
 @section('breadcrumb')
-<li class="breadcrumb-item">@yield('title')</li>
+    <li class="breadcrumb-item">@yield('title')</li>
 @endsection
 @section('content')
-<div class="card">
-    <div class="card-header">
-        <h3 class="card-title">Sección de usuarios</h3>
-        <div class="card-tools">
-            <a type="button" class="btn btn-tool" href="{{ route('users.create') }}">
-                <h3 class="card-title"><i class="fas fa-plus"></i> Agregar </h3>
-            </a>
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                title="Collapse">
-                <i class="fas fa-minus"></i></button>
-        </div>
-    </div>
-    <div class="card-body table-responsive p-0" style="height: 300px;">
-        {{-- <ul class="nav nav-tabs">
-        @foreach (getModulesArray() as $module => $item)
-        <li class="nav-item">
-            <a class="nav-link " href="{{route('categories.module', $module)}}">{{$item}}</a>
-        </li>
-        @endforeach
-    </ul> --}}
-
-        <table class="table table-head-fixed">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th>Nombre</th>
-                    <th>Correo Electronico</th>
-                    <th colspan="3">&nbsp;</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($users as $user)
-                    <tr>
-                        <td scope="row">{{ $user->id }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-
-                        {{-- <td width="10px">
-                            <a class="btn btn-info" href="{{ route('users.show', $user->id) }}">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                        </td> --}}
-                        {{-- <td width="10px">
-                            <a class="btn btn-info" href="{{ route('users.edit', $user->id) }}">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                        </td> --}}
-                        <td width="10px">
-                            {!! Form::open(['route' => ['users.destroy', $user->id], 'method' => 'DELETE']) !!}
-                            <button class="btn btn-danger">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                            {!! Form::close() !!}
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-        {{ $users->render() }}
-    </div>
-    <div class="card-footer">
-        Footer
-    </div>
-</div>
-
-  {{-- <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-
-    <!-- Main content -->
-    <section class="content">
-
-
-      <div class="card card-solid">
-        
-        <div class="card-body pb-0">
-            
-          <div class="row d-flex align-items-stretch">
-            @foreach ($users as $user )
-            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
-              <div class="card bg-light">
-                <div class="card-header text-muted border-bottom-0">
-                  Digital Strategist
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h2 class="mb-0">Data Table</h2>
                 </div>
-                <div class="card-body pt-0">
-                  <div class="row">
-                    <div class="col-7">
-                      <h2 class="lead"><b>{{$user->name}}</b></h2>
-                      <p class="text-muted text-sm"><b>Email:</b>{{$user->email}}</p>
-                      <ul class="ml-4 mb-0 fa-ul text-muted">
-                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
-                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
-                      </ul>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example" class="table table-striped table-bordered w-100 text-nowrap">
+                            <thead>
+                                <tr style="text-align: center">
+                                    <th class="wd-15p"><strong>ID</strong></th>
+                                    <th class="wd-15p"><strong>Nombre</strong></th>
+                                    <th class="wd-15p"><strong>Correo Electronico</strong></th>
+                                    <th class="wd-15p"><strong>Fecha de Registro</strong></th>
+                                    <th class="wd-15p"><strong>Editar</strong></th>
+                                    <th class="wd-15p"><strong>Eliminar</strong></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach ( $users as $user )
+                                {{-- @if($user->id==1 || $user->estado==2) --}}
+                                    <tr class="table-Light" style="text-align: center">
+
+                                        <!--<th  >$rol->NombreRol}}</th>-->
+
+                                        <td>{{$user->id}}</td>
+                                        <td>{{$user->name}}</td>
+                                        <td>{{$user->email}}</td>
+                                        <td>{{$user->created_at}}</td>
+                                        <td width="10px">
+                                            <a class="btn btn-info" href="{{ route('users.edit', $user->id) }}">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </td>
+                                        <td width="10px">
+                                            {!! Form::open(['route' => ['users.destroy', $user->id], 'method' => 'DELETE']) !!}
+                                            <button class="btn btn-danger">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                            {!! Form::close() !!}
+                                        </td>
+
+
+                                        {{-- <th><a href="{{url('user/'.$user->idUsuario) }}">{{$user->email}}</a></th>
+
+                                        <td><a href="{{url('user/'.$user->idUsuario.'/edit') }}" type="button" class="btn btn-success"><i class="icon ion-md-create"></i></a></td> --}}
+
+                                        {{-- <td>
+                                            @switch ($user->estado)
+                                                @case(null)
+                                                    <strong class="alert-info">Usuario sin estado
+                                                        <a href="{{ url('user/'.$user->idUsuario .'/estado') }}">
+                                                            Asignar estado
+                                                        </a>
+                                                    </strong>
+                                                @break
+                                                @case(1)
+                                                    <a href="{{ url('user/'.$user->idUsuario .'/estado') }}" type="button" class="btn btn-danger"><i class="icon ion-md-trash"></i> </a>
+                                                @break
+
+                                                @case(2)
+                                                    <a href="{{ url('user/'.$user->idUsuario .'/estado') }}"type="button" class="btn btn-success"><i class="icon ion-md-checkmark"></i>
+                                                    </a>
+                                                @break
+                                            @endswitch
+                                        </td> --}}
+                                    </tr>
+                                    {{-- @endif --}}
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="col-5 text-center">
-                      <img src="../../dist/img/user1-128x128.jpg" alt="" class="img-circle img-fluid">
-                    </div>
-                  </div>
                 </div>
-                <div class="card-footer">
-                  <div class="text-right">
-                    <a href="#" class="btn btn-sm bg-teal">
-                      <i class="fas fa-comments"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm btn-primary">
-                      <i class="fas fa-user"></i> View Profile
-                    </a>
-                  </div>
-                </div>
-              </div>
             </div>
-            @endforeach
-          </div>
-          
+
         </div>
-        
-        <!-- /.card-body -->
-        <div class="card-footer">
-          <nav aria-label="Contacts Page Navigation">
-            <ul class="pagination justify-content-center m-0">
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">4</a></li>
-              <li class="page-item"><a class="page-link" href="#">5</a></li>
-              <li class="page-item"><a class="page-link" href="#">6</a></li>
-              <li class="page-item"><a class="page-link" href="#">7</a></li>
-              <li class="page-item"><a class="page-link" href="#">8</a></li>
-            </ul>
-          </nav>
-        </div>
-        <!-- /.card-footer -->
-        
-      </div>
-      <!-- /.card -->
-     
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper --> --}}
+    </div>
 
 @endsection
+
+@section('scripts')}
+<script>
+    $(function(e) {
+        $('#example').DataTable();
+
+        var table = $('#example1').DataTable();
+        $('button').click(function() {
+            var data = table.$('input, select').serialize();
+            alert(
+                "The following data would have been submitted to the server: \n\n" +
+                data.substr(0, 120) + '...'
+            );
+            return false;
+        });
+        $('#example2').DataTable({
+            "scrollY": "200px",
+            "scrollCollapse": true,
+            "paging": false
+        });
+    });
+</script>
+
+@endsection
+

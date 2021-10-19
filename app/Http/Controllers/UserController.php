@@ -24,7 +24,7 @@ class UserController extends Controller
 
     public function create()
     {
-        
+
         return view('admin.users.create');
     }
 
@@ -43,7 +43,7 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('info','Usuario Creado Exitosamente');
 
 
-        
+
         return view('admin.users.create');
     }
 

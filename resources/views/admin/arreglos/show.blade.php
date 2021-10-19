@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts._admin')
 @section('title','Detalles arreglo')
 @section('breadcrumb')
 <li class="breadcrumb-item active">
@@ -26,7 +26,7 @@
               <p>
                 {!!htmlspecialchars_decode($arreglo->DescripcionArreglo)!!}
               </p>
-              
+
               <hr>
             </div>
             <div class="col-md-4">
@@ -37,7 +37,7 @@
                     <div class="col-lg-8">
                       <ul class="list-unstyled mb-0">
                         <li>
-                            <h5>Nombre contacto:</h5> {{$arreglo->NombreReclama}} <br>        
+                            <h5>Nombre contacto:</h5> {{$arreglo->NombreReclama}} <br>
                         </li>
                         <li>
                             <h5>Telefono: </h5>{{$arreglo->TelefonoReclama}}

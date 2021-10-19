@@ -86,8 +86,6 @@ Route::put('/reply/{commet}','CommetController@update')->name('comment.update');
 
 
 
-
-
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+

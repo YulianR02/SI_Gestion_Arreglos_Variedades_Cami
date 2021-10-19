@@ -88,7 +88,7 @@ class ArregloController extends Controller
             'ValorArreglo'=>'required|numeric',
             'FechaEntrega'=>'required',
             'EstadoArreglo'=>'required',
-            'NombreReclama'=>'required!min:4|max:30',
+            'NombreReclama'=>'required|min:4|max:30',
             'TelefonoReclama'=>'required|numeric',
             'image'=>'image|required',
 

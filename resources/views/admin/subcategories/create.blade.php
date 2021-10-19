@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts._admin')
 @section('title','Crear SubCategoria')
     @section('breadcrumb')
     <li class="breadcrumb-item active">
