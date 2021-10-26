@@ -10,6 +10,9 @@
 <div class="card">
 	<div class="card-header">
 	  <h3 class="card-title">Registro de arreglo</h3>
+      <strong class="form-text text-muted">
+        Campos marcados con (*) obligatorios, diligenciarlos por favor.
+    </strong>
     </div>
     {!! Form::open(['route'=>'arreglos.store', 'method'=>'POST','files' => true]) !!}
 	<div class="card-body ">

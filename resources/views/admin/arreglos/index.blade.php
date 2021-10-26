@@ -22,7 +22,6 @@
                         <table id="example" class="table table-striped table-bordered w-100 text-nowrap">
                             <thead>
                                 <tr style="text-align: center">
-                                    <th class="wd-15p"><strong>ID</strong></th>
                                     <th class="wd-15p"><strong>Cliente</strong></th>
                                     <th class="wd-15p">Fecha Realizacion</th>
                                     <th class="wd-15p">Fecha Entrega</th>
@@ -39,8 +38,6 @@
                                     <tr class="table-Light" style="text-align: center">
 
                                         <!--<th  >$rol->NombreRol}}</th>-->
-
-                                        <th scope="row">{{ $arreglo->id }}</th>
                                         <th>{{ $arreglo->user->name }}</th>
                                         <th>{{ $arreglo->created_at }}</th>
                                         <th>{{ $arreglo->FechaEntrega }}</th>

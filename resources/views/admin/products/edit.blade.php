@@ -10,6 +10,9 @@
 <div class="card">
 	<div class="card-header">
 	  <h3 class="card-title">Edición de producto</h3>
+      <strong class="form-text text-muted">
+        Campos marcados con (*) obligatorios, diligenciarlos por favor.
+    </strong>
     </div>
     {!! Form::model($product, ['route'=>['products.update',$product->id],'method'=>'PUT','files' => true]) !!}
 	<div class="card-body ">

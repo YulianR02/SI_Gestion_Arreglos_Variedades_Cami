@@ -22,7 +22,6 @@
                     <table id="example" class="table table-striped table-bordered w-100 text-nowrap">
                         <thead>
                             <tr style="text-align: center">
-                                <th class="wd-15p"><strong>ID</strong></th>
                                 <th class="wd-15p"><strong>Nombre</strong></th>
                                 <th class="wd-15p"><strong>Estado</strong></th>
                                 <th class="wd-15p">Observar</th>
@@ -37,12 +36,10 @@
                                 <tr class="table-Light" style="text-align: center">
 
                                     <!--<th  >$rol->NombreRol}}</th>-->
-
-                                    <th>{{ $product->id }}</th>
                                     <th>{{ $product->name }}</th>
                                     <th>{{ $product->status }}</th>
                                     <th>
-                                        <a class="btn btn-info" href="{{ route('products.show', $product->id) }}">
+                                        <a class="btn btn-primary" href="{{ route('products.show', $product->id) }}">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                     </th>

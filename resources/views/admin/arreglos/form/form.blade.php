@@ -1,7 +1,10 @@
 <div class="form-group">
     <div class="form-group col">
-        {!! Form::label('user_id','clientes') !!}
-        {!! Form::select('user_id', $usuarios , null, ['class'=>'form-control'] ) !!}
+        {!! Form::label('user_id', 'clientes') !!}
+        {!! Form::select('user_id', $usuarios, null, ['class' => 'form-control']) !!}
+        @error('user_id')
+            <div class="alert alert-warning">{{ $message }}</div>
+        @enderror
     </div>
     <div class="form-group col">
         {!! Form::label('Imagen') !!}
@@ -9,59 +12,83 @@
             <input type="file" class="custom-file-input" name="image" lang="es">
             <label class="custom-file-label" name="image">Seleccionar Archivo</label>
         </div>
+        @error('image')
+            <div class="alert alert-warning">{{ $message }}</div>
+        @enderror
     </div>
 </div>
 <div class="form-group">
-    {!! Form::label('DescripcionArreglo','Descripcion') !!}
-    {!! Form::textarea('DescripcionArreglo', null, ['class'=>'form-control', 'rows'=>'3']) !!}
+    {!! Form::label('DescripcionArreglo', 'Descripcion') !!}
+    {!! Form::textarea('DescripcionArreglo', null, ['class' => 'form-control', 'rows' => '3']) !!}
+    @error('DescripcionArreglo')
+        <div class="alert alert-warning">{{ $message }}</div>
+    @enderror
 </div>
 <div class="col-md-4 mb-3">
-    {!! Form::label('ValorArreglo','Valor del Arreglo') !!}
+    {!! Form::label('ValorArreglo', 'Valor del Arreglo') !!}
     <div class="input-group">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroupPrepend">$</span>
+            <span class="input-group-text" id="inputGroupPrepend">$</span>
         </div>
-        {!! Form::text('ValorArreglo', null, ['class'=>'form-control', 'placeholder'=>'Valor del Arreglo']) !!}
+        {!! Form::text('ValorArreglo', null, ['class' => 'form-control', 'placeholder' => 'Valor del Arreglo']) !!}
+
     </div>
+
+    @error('ValorArreglo')
+        <div class="alert alert-warning">{{ $message }}</div>
+    @enderror
 </div>
 <div class="col-md-4 mb-3">
-    {!! Form::label('FechaEntrega','Fecha de Entrega') !!}
+    {!! Form::label('FechaEntrega', 'Fecha de Entrega') !!}
     <div class="input-group">
-        {!! Form::date('FechaEntrega', null, ['class'=>'form-control']) !!}
+        {!! Form::date('FechaEntrega', null, ['class' => 'form-control']) !!}
     </div>
+    @error('FechaEntrega')
+        <div class="alert alert-warning">{{ $message }}</div>
+    @enderror
 </div>
 <div class="form-group">
-    {!! Form::label('Estado','Estado del Arreglo ') !!}
+    {!! Form::label('Estado', 'Estado del Arreglo ') !!}
     <div class="form-check">
         <input class="form-check-input" type="radio" name="EstadoArreglo" id="exampleRadios1" value="Terminado">
         <label class="form-check-label" for="exampleRadios1">
-        Terminado
+            Terminado
         </label>
     </div>
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="EstadoArreglo" id="exampleRadios2" value="En Proceso" checked>
+        <input class="form-check-input" type="radio" name="EstadoArreglo" id="exampleRadios2" value="En Proceso"
+            checked>
         <label class="form-check-label" for="exampleRadios2">
-        En proceso
+            En proceso
         </label>
     </div>
+    @error('FechaEntrega')
+        <div class="alert alert-warning">{{ $message }}</div>
+    @enderror
 </div>
 <div class="form-group">
-    {!! Form::label('NombreReclama','Nombre de quien reclama') !!}
+    {!! Form::label('NombreReclama', 'Nombre de quien reclama') !!}
     <div class="input-group">
-        {!! Form::text('NombreReclama', null, ['class'=>'form-control', 'placeholder'=>'Nombre de persona que reclama']) !!}
-    </>
-</div>
-<div class="form-group">
-    {!! Form::label('TelefonoReclama','Telefono de quien reclama') !!}
-    <div class="input-group">
-        {!! Form::text('TelefonoReclama', null, ['class'=>'form-control', 'placeholder'=>'Telefono de persona que reclama']) !!}
-    </>
-</div>
+        {!! Form::text('NombreReclama', null, ['class' => 'form-control', 'placeholder' => 'Nombre de persona que reclama']) !!}
+        </>
+    </div>
+    @error('NombreReclama')
+        <div class="alert alert-warning">{{ $message }}</div>
+    @enderror
+    <div class="form-group">
+        {!! Form::label('TelefonoReclama', 'Telefono de quien reclama') !!}
+        <div class="input-group">
+            {!! Form::text('TelefonoReclama', null, ['class' => 'form-control', 'placeholder' => 'Telefono de persona que reclama']) !!}
+            </>
+        </div>
+        @error('TelefonoReclama')
+            <div class="alert alert-warning">{{ $message }}</div>
+        @enderror
 
 
-@section('scripts')
-{!! Html::script('vendor/ckeditor/ckeditor.js') !!}
-<script>
-    CKEDITOR.replace('body');
-</script>
-@endsection
+        @section('scripts')
+            {!! Html::script('vendor/ckeditor/ckeditor.js') !!}
+            <script>
+                CKEDITOR.replace('body');
+            </script>
+        @endsection

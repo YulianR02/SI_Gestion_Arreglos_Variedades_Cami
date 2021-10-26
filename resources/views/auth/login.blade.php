@@ -62,13 +62,15 @@
             {{ $message }}
           </div>
         @enderror
-        <div class="wrap-input100 validate-input" data-validate="El email requerido debe ser: example@abc.xyz">
+        <div class="wrap-input100 ">
 
-            <input id="email" class="input100" type="text" @error('email') is-invalid @enderror" name="email"
+            <input id="email" class="input100" type="text"  name="email"
                 value="{{ old('email') }}" required autocomplete="email" autofocus>
 
             <span class="focus-input100"></span>
             <span class="label-input100">Correo Electronico</span>
+
+
         </div>
         <div class="wrap-input100 validate-input" data-validate="Password is required">
             <input id="password" type="password" class="input100" @error('password') is-invalid @enderror"

@@ -23,7 +23,6 @@
                     <table id="example" class="table table-striped table-bordered w-100 text-nowrap">
                         <thead>
                             <tr style="text-align: center">
-                                <th class="wd-15p"><strong>ID</strong></th>
                                 <th class="wd-15p"><strong>Nombre</strong></th>
                                 <th class="wd-15p">Editar</th>
                                 <th class="wd-15p">Eliminar</th>
@@ -36,8 +35,6 @@
                                 <tr class="table-Light" style="text-align: center">
 
                                     <!--<th  >$rol->NombreRol}}</th>-->
-
-                                    <th>{{ $subcategory->id }}</th>
                                     <th>{{ $subcategory->name }}</th>
                                     <th >
                                         <a class="btn btn-info" href="{{ route('subcategories.edit', $subcategory->id) }}">

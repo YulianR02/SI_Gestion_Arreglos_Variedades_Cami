@@ -652,7 +652,7 @@
                                                         class="d-none">
                                                         @csrf
                                                     </form>
-                                                    <span>Cerrar sesión</span>
+                                                    <span></span>
                                                 </a>
 
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -710,7 +710,7 @@
                                     </button>
                                 </div> --}}
                             @endif
-                            @if ($errors->any())
+                            {{-- @if ($errors->any())
                                 <div class="alert alert-warning" role="alert">
                                     <span class="alert-inner--icon"><i class="fe fe-info"></i></span>
                                     <span class="alert-inner--text">
@@ -719,7 +719,7 @@
                                         @endforeach
                                     </span>
                                 </div>
-                            @endif
+                            @endif --}}
                             <!-- Default box -->
                             @yield('content')
                             <!-- /.card -->

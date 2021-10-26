@@ -34,8 +34,8 @@ class ArregloController extends Controller
             'user_id'=>'required|integer',
             'ValorArreglo'=>'required|numeric',
             'FechaEntrega'=>'required',
-            'EstadoArreglo'=>'required',
-            'NombreReclama'=>'required|min:4|max:30',
+            // 'EstadoArreglo'=>'required',
+            'NombreReclama'=>'required|min:4|max:30|alpha',
             'TelefonoReclama'=>'required|numeric',
             'image'=>'image|required',
 
@@ -87,8 +87,8 @@ class ArregloController extends Controller
             'user_id'=>'required|integer',
             'ValorArreglo'=>'required|numeric',
             'FechaEntrega'=>'required',
-            'EstadoArreglo'=>'required',
-            'NombreReclama'=>'required|min:4|max:30',
+            // 'EstadoArreglo'=>'required',
+            'NombreReclama'=>'required|min:4|max:30|alpha',
             'TelefonoReclama'=>'required|numeric',
             'image'=>'image|required',
 

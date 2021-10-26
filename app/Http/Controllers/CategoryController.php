@@ -32,21 +32,22 @@ class CategoryController extends Controller
         //create register categories
         $request->validate([
             'name'=>'required|unique:categories|min:4|max:20',
-            'module'=>'required|max:20',
+            // 'module'=>'required',
+            'image'=>'required|image',
+            // 'front  '=>'required',
         ]);
         if($request->hasFile('image')){
             $image=$request->file('image');
-            $nombre = time().$image->getClientOriginalName();
+            $name = time().$image->getClientOriginalName();
             $ruta = public_path().'/images/';
-            $image->move($ruta,$nombre);
-            $urlimage['url']='/images/'.$nombre;
+            $image->move($ruta,$name);
+            $urlimage['url']='/images/'.$name;
         }
         $category = new Category;
         $category->name = e($request->name);
         $category->module = e($request->module);
         $category->slug = Str::slug($request->name);
-        $category->icon = e($request->icon);
-        $category->front = e($request->front);
+        $category->front = e($request->front    );
         $category->save();
         if($request->hasFile('image')){
             $category->image()->create($urlimage);
@@ -77,23 +78,23 @@ class CategoryController extends Controller
     {
         //create update for categories
         $request->validate([
-            //'name'=>'required|unique:categories|min:4|max:20',
             'name'=>'required|min:4|max:20',
-            'module'=>'required|max:20',
+            // 'module'=>'required',
+            'image'=>'required|image',
+            // 'front  '=>'required',
         ]);
         if($request->hasFile('image')){
             $image=$request->file('image');
-            $nombre = time().$image->getClientOriginalName();
+            $name = time().$image->getClientOriginalName();
             $ruta = public_path().'/images/';
-            $image->move($ruta,$nombre);
-            $urlimage['url']='/images/'.$nombre;
+            $image->move($ruta,$name);
+            $urlimage['url']='/images/'.$name;
         }
         $category = Category::findOrFail($id);
         $category->name = e($request->name);
         $category->module = e($request->module);
         $category->slug = Str::slug($request->name);
-        $category->icon = e($request->icon);
-        $category->front = e($request->front);
+        $category->front     = e($request->front    );
         if($request->hasFile('image')){
             $category->image()->delete();
         }

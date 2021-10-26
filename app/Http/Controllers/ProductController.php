@@ -41,8 +41,9 @@ class ProductController extends Controller
             'actualPrice'=>'required|numeric',
             'previousPrice'=>'required|numeric',
             'discountRate'=>'required|numeric',
-            'shortDescription'=>'required',
-            'longDescription'=>'required',
+            'images'=>'required',
+            'shortDescription'=>'required|max:50',
+            'longDescription'=>'required|min:60',
             'state'=>'required',
             'status'=>'required',
         ]);
@@ -102,8 +103,9 @@ class ProductController extends Controller
             'actualPrice'=>'required|numeric',
             'previousPrice'=>'required|numeric',
             'discountRate'=>'required|numeric',
-            'shortDescription'=>'required',
-            'longDescription'=>'required',
+            'images'=>'required',
+            'shortDescription'=>'required|max:50',
+            'longDescription'=>'required|min:60',
             'state'=>'required',
             'status'=>'required',
         ]);
@@ -136,7 +138,7 @@ class ProductController extends Controller
         if($request->hasFile('images')){
             $product->images()->createMany($urlimages);
         }
-        return redirect()->route('products.index')->with('info','producto Actualizada Exitosamente');
+        return redirect()->route('products.index')->with('info','producto actualizado Exitosamente');
 
     }
 
