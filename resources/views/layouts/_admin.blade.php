@@ -305,53 +305,61 @@
                                 </li>
                             </ul>
                         </li> --}}
-                        <li class="slide">
-                            <a class="side-menu__item" data-toggle="slide" href="#"><i
-                                    class="side-menu__icon fe fe-box"></i><span
-                                    class="side-menu__label">Categorias</span><i
-                                    class="angle fa fa-angle-right"></i></a>
-                            <ul class="slide-menu">
-                                <li>
-                                    <a href="{{ route('categories.index') }}" class="slide-item"><i
-                                            class="side-menu__icon fe fe-plus"></i>Crear</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('categories.index') }}" class="slide-item"><i
-                                            class="side-menu__icon fe fe-list"></i>Lista</a>
-                                </li>
+                        @can('categories.create', 'categories.index')
+                            <li class="slide">
+                                <a class="side-menu__item" data-toggle="slide" href="#"><i
+                                        class="side-menu__icon fe fe-box"></i><span
+                                        class="side-menu__label">Categorias</span><i class="angle fa fa-angle-right"></i>
+                                </a>
+                                <ul class="slide-menu">
+                                    <li>
+                                        <a href="{{ route('categories.create') }}" class="slide-item"><i
+                                                class="side-menu__icon fe fe-plus"></i>Crear</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('categories.index') }}" class="slide-item"><i
+                                                class="side-menu__icon fe fe-list"></i>Lista</a>
+                                    </li>
 
-                            </ul>
-                        </li>
-                        <li class="slide">
-                            <a class="side-menu__item" data-toggle="slide" href="#"><i
-                                    class="side-menu__icon fe fe-codepen"></i><span
-                                    class="side-menu__label">Subcategorias</span><i
-                                    class="angle fa fa-angle-right"></i></a>
-                            <ul class="slide-menu">
-                                <li>
-                                    <a href="{{ route('subcategories.index') }}" class="slide-item"><i
-                                            class="side-menu__icon fe fe-plus"></i>Crear</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('subcategories.index') }}" class="slide-item"><i
-                                            class="side-menu__icon fe fe-list"></i>Lista</a>
-                                </li>
+                                </ul>
+                            </li>
 
-                            </ul>
-                        </li>
+                        @endcan
+                        @can('subcategories.create', 'subcategories.index')
+                            <li class="slide">
+                                <a class="side-menu__item" data-toggle="slide" href="#"><i
+                                        class="side-menu__icon fe fe-codepen"></i><span
+                                        class="side-menu__label">Subcategorias</span><i class="angle fa fa-angle-right"></i>
+                                </a>
+                                <ul class="slide-menu">
+                                    <li>
+                                        <a href="{{ route('subcategories.create') }}" class="slide-item"><i
+                                                class="side-menu__icon fe fe-plus"></i>Crear
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('subcategories.index') }}" class="slide-item"><i
+                                                class="side-menu__icon fe fe-list"></i>Lista</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        @endcan
                         <li class="slide">
                             <a class="side-menu__item" data-toggle="slide" href="#"><i
                                     class="side-menu__icon fe fe-shopping-cart"></i><span
                                     class="side-menu__label">Productos</span><i class="angle fa fa-angle-right"></i></a>
                             <ul class="slide-menu">
-                                <li>
-                                    <a href="{{ route('products.index') }}" class="slide-item"><i
-                                            class="side-menu__icon fe fe-plus"></i>Crear</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('products.index') }}" class="slide-item"><i
-                                            class="side-menu__icon fe fe-list"></i>Lista</a>
-                                </li>
+                                @can('products.create', 'products.index')
+                                    <li>
+                                        <a href="{{ route('products.create') }}" class="slide-item"><i
+                                                class="side-menu__icon fe fe-plus"></i>Crear</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('products.index') }}" class="slide-item"><i
+                                                class="side-menu__icon fe fe-list"></i>Lista</a>
+                                    </li>
+                                @endcan
 
                             </ul>
                         </li>
@@ -360,49 +368,56 @@
                                     class="side-menu__icon fe fe-shopping-bag"></i><span
                                     class="side-menu__label">Arreglos</span><i class="angle fa fa-angle-right"></i></a>
                             <ul class="slide-menu">
+                                @can('arreglos.create')
+                                    <li>
+                                        <a href="{{ route('arreglos.create') }}" class="slide-item"><i
+                                                class="side-menu__icon fe fe-plus"></i>Crear</a>
+                                    </li>
+                                @endcan
                                 <li>
                                     <a href="{{ route('arreglos.index') }}" class="slide-item"><i
-                                            class="side-menu__icon fe fe-plus"></i>Crear</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('arreglos.index') }}" class="slide-item"><i
                                             class="side-menu__icon fe fe-list"></i>Lista</a>
                                 </li>
 
                             </ul>
                         </li>
-                        <li class="slide">
-                            <a class="side-menu__item" data-toggle="slide" href="#"><i
-                                    class="side-menu__icon fe fe-user"></i><span
-                                    class="side-menu__label">Usuarios</span><i class="angle fa fa-angle-right"></i></a>
-                            <ul class="slide-menu">
-                                <li>
-                                    <a href="{{ route('users.create') }}" class="slide-item"><i
-                                            class="side-menu__icon fe fe-plus"></i>Crear</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('users.index') }}" class="slide-item"><i
-                                            class="side-menu__icon fe fe-list"></i>Lista</a>
-                                </li>
+                        @can('users.update', 'users.index', 'users.create')
+                            <li class="slide">
+                                <a class="side-menu__item" data-toggle="slide" href="#"><i
+                                        class="side-menu__icon fe fe-user"></i><span
+                                        class="side-menu__label">Usuarios</span><i class="angle fa fa-angle-right"></i></a>
+                                <ul class="slide-menu">
+                                    <li>
+                                        <a href="{{ route('users.create') }}" class="slide-item"><i
+                                                class="side-menu__icon fe fe-plus"></i>Crear</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('users.index') }}" class="slide-item"><i
+                                                class="side-menu__icon fe fe-list"></i>Lista</a>
+                                    </li>
 
-                            </ul>
-                        </li>
-                        <li class="slide">
-                            <a class="side-menu__item" data-toggle="slide" href="#"><i
-                                    class="side-menu__icon fe fe-users"></i><span
-                                    class="side-menu__label">roles</span><i class="angle fa fa-angle-right"></i></a>
-                            <ul class="slide-menu">
-                                <li>
-                                    <a href="{{ route('users.create') }}" class="slide-item"><i
-                                            class="side-menu__icon fe fe-plus"></i>Crear</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('users.index') }}" class="slide-item"><i
-                                            class="side-menu__icon fe fe-list"></i>Lista</a>
-                                </li>
+                                </ul>
+                            </li>
+                        @endcan
+                        @can('roles.create', 'roles.update', 'roles.index')
+                            <li class="slide">
+                                <a class="side-menu__item" data-toggle="slide" href="#"><i
+                                        class="side-menu__icon fe fe-users"></i><span
+                                        class="side-menu__label">roles</span><i class="angle fa fa-angle-right"></i>
+                                </a>
+                                <ul class="slide-menu">
+                                    <li>
+                                        <a href="{{ route('users.create') }}" class="slide-item"><i
+                                                class="side-menu__icon fe fe-plus"></i>Crear</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('users.index') }}" class="slide-item"><i
+                                                class="side-menu__icon fe fe-list"></i>Lista</a>
+                                    </li>
 
-                            </ul>
-                        </li>
+                                </ul>
+                            </li>
+                        @endcan
 
 
 
@@ -644,10 +659,11 @@
                                                 <a class="dropdown-item" href="#"><i class="ni ni-support-16"></i>
                                                     <span>Soporte</span></a>
                                                 <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                            document.getElementById('logout-form').submit();"><i
-                                                        class="ni ni-user-run"></i>
-                                                    {{ __('Logout') }}
+                                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault();
+                                                                                                    document.getElementById('logout-form').submit();">
+                                                    <i class="ni ni-user-run"></i>
+                                                    {{ __('Cerrar Sesión') }}
                                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                                         class="d-none">
                                                         @csrf
@@ -655,10 +671,6 @@
                                                     <span></span>
                                                 </a>
 
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                    class="d-none">
-                                                    @csrf
-                                                </form>
 
                                             </div>
                                         </li>
@@ -783,11 +795,7 @@
             var table = $('#example1').DataTable();
             $('button').click(function() {
                 var data = table.$('input, select').serialize();
-                alert(
-                    "The following data would have been submitted to the server: \n\n" +
-                    data.substr(0, 120) + '...'
-                );
-                return false;
+
             });
             $('#example2').DataTable({
                 "scrollY": "200px",

@@ -18,8 +18,8 @@ class CreateCategoriesTable extends Migration
             $table->string('name');
             $table->string('module');
             $table->string('slug');
-            $table->string('icon');
-            $table->enum('front',['YES','NO'])->default('NO'); 
+            // $table->string('icon');
+            $table->enum('front',['YES','NO'])->default('NO');
             $table->softDeletes();
             $table->timestamps();
         });

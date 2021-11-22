@@ -30,7 +30,7 @@ return [
         'array' => 'El :attribute must have between :min and :max items.',
     ],
     'boolean' => 'El :attribute field must be true or false.',
-    'confirmed' => 'El :attribute confirmation does not match.',
+    'confirmed' => 'Las contraseñas no coinciden',
     'date' => 'El :attribute no es una fecha valida.',
     'date_equals' => 'El :attribute debe ser una fecha igual :date.',
     'date_format' => 'El :attribute no coincide con el formato :format.',

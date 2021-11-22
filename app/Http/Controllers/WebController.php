@@ -13,21 +13,21 @@ class WebController extends Controller
 
     public function index()
     {
-        $category = Category::where('front','YES')->with('subcategories')->firstOrFail();
+        // $category = Category::where('front','YES')->with('subcategories')->firstOrFail();
 
-        $productsCategory = Product::where('status','PUBLISHED')->whereHas('subcategory.category',function($query) use ($category){
-            $query->where('id',$category->id);
-        })->with('images')->get()->take(6);
+        // $productsCategory = Product::where('status','PUBLISHED')->whereHas('subcategory.category',function($query) use ($category){
+        //     $query->where('id',$category->id);
+        // })->with('images')->get()->take(6);
 
-        $productsFeatured =Product::where('status','PUBLISHED')->where('state',4)->with('images')->get()->take(6);
+        // $productsFeatured =Product::where('status','PUBLISHED')->where('state',4)->with('images')->get()->take(6);
 
         $productsNew =Product::where('status','PUBLISHED')->orderBy('id','DESC')->with('images')->get()->take(6);
 
-        $latestBlogs =Post::where('status','PUBLISHED')->orderBy('id','DESC')->with('image','user')->get()->take(5);
+        // $latestBlogs =Post::where('status','PUBLISHED')->orderBy('id','DESC')->with('image','user')->get()->take(5);
 
-        $hotDeals =Product::where('status','PUBLISHED')->orderBy('previousPrice','DESC')->with('images')->get()->take(3);
+        // $hotDeals =Product::where('status','PUBLISHED')->orderBy('previousPrice','DESC')->with('images')->get()->take(3);
 
-        return view('web.index', compact('category','productsCategory','productsFeatured','productsNew','latestBlogs','hotDeals'));
+        return view('web.index');
     }
 
     public function notFound()

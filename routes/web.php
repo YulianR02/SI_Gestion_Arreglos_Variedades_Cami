@@ -51,8 +51,8 @@ Route::get('/categorias','WebController@category')->name('web.category');
 
 
 
-/**Routes of Admins */
-Route::resource('admin/','HomeController')->names('homes');
+// /**Routes of Admins */
+// Route::resource('admin/','HomeController')->names('homes');
 
 Route::resource('admin/categories','CategoryController')->names('categories');
 
@@ -60,7 +60,7 @@ Route::get('admin/category/{module}','CategoryController@module')->name('categor
 
 Route::resource('admin/subcategories','SubcategoryController')->names('subcategories');
 
-Route::resource('admin/posts','PostController')->names('posts');
+// Route::resource('admin/posts','PostController')->names('posts');
 
 Route::resource('admin/arreglos','ArregloController')->names('arreglos');
 
@@ -68,19 +68,19 @@ Route::resource('admin/products','ProductController')->names('products');
 
 Route::resource('admin/users','UserController')->names('users');
 
-Route::post('/comment/store','CommetController@store')->name('comment.add');
+// Route::post('/comment/store','CommetController@store')->name('comment.add');
 
-Route::post('/reply/store','CommetController@replyStore')->name('reply.add');
+// Route::post('/reply/store','CommetController@replyStore')->name('reply.add');
 
-Route::post('/commentProduct/store','CommetController@productStore')->name('productComment.add');
+// Route::post('/commentProduct/store','CommetController@productStore')->name('productComment.add');
 
-Route::post('/replyProduct/store','CommetController@productReplyStore')->name('productReply.add');
+// Route::post('/replyProduct/store','CommetController@productReplyStore')->name('productReply.add');
 
-Route::delete('/reply/destroy/{commet}','CommetController@destroy')->name('comment.destroy');
+// Route::delete('/reply/destroy/{commet}','CommetController@destroy')->name('comment.destroy');
 
-Route::get('/reply/{commet}/edit','CommetController@edit')->name('comment.edit');
+// Route::get('/reply/{commet}/edit','CommetController@edit')->name('comment.edit');
 
-Route::put('/reply/{commet}','CommetController@update')->name('comment.update');
+// Route::put('/reply/{commet}','CommetController@update')->name('comment.update');
 
 
 

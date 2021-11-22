@@ -92,19 +92,19 @@
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab"
-                                aria-controls="description" aria-selected="true">Description</a>
+                                aria-controls="description" aria-selected="true">Descripción</a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" id="review-tab" data-toggle="tab" href="#comments" role="tab"
                                 aria-controls="review" aria-selected="false">Comentarios</a>
-                        </li>
+                        </li> --}}
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="description" role="tabpanel"
                             aria-labelledby="description-tab">
                             {!! htmlspecialchars_decode($product->longDescription) !!}
                         </div>
-                        <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="review-tab">
+                        {{-- <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="review-tab">
                             <!-- Comments Form -->
                             <div class="card my-4">
                                 <h5 class="card-header">Deja un comentario:</h5>
@@ -123,7 +123,7 @@
 
                             @include('admin.products._replies',['comments'=>$product->comments, 'product_id'=>$product->id])
 
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

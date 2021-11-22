@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -46,6 +47,26 @@ class UserController extends Controller
 
         return view('admin.users.create');
     }
+
+    public function show(Request $request)
+    {
+
+    }
+
+
+    public function edit(User $user)
+    {
+        $roles = Role::all();
+
+        return view('admin.users.edit' , compact('user','roles'));
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $user->roles()->sync($request->roles);
+        return redirect()->route('users.edit', $user)->with('info','Se asignó el rol correctamente.');
+    }
+
 
     public function destroy($id)
     {
