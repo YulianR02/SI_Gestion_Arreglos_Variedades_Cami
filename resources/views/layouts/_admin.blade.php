@@ -16,6 +16,18 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800" rel="stylesheet">
 
+    {{-- Bootstrap --}}
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    {!! Html::style('assets/vendor/bootstrap/css/bootstrap.min.css') !!}
+    {!! Html::style('assets/vendor/bootstrap-icons/bootstrap-icons.css') !!}
+    {!! Html::style('assets/vendor/boxicons/css/boxicons.min.css') !!}
+    {!! Html::style('assets/vendor/glightbox/css/glightbox.min.css') !!}
+    {!! Html::style('assets/vendor/swiper/swiper-bundle.min.css') !!}
+
+    {!! Html::style('assets/css/style.css') !!}
     <!-- Icons -->
     <link href="/assets/css/icons.css" rel="stylesheet">
 
@@ -60,6 +72,20 @@
                             src="/assets/img/brand/LogoT.png"> <img alt="..." class="navbar-brand-img logo"
                             src="/assets/img/brand/logo.png"></a>
                     <ul class="side-menu">
+
+                        @if (@Auth::user()->hasRole('Administrador'))
+                            <li>
+                                <span class="side-menu__item">ADMINISTRADOR</span>
+                            </li>
+                        @elseif(@Auth::user()->hasRole('Cliente'))
+                            <li>
+                                <span class="side-menu__item">CLIENTE</span>
+                            </li>
+                        @else
+                            <li>
+                                <span class="side-menu__item">USUARIO SIN ROL</span>
+                            </li>
+                        @endif
                         <li class="slide">
                             <a class="side-menu__item active" data-toggle="slide" href="#"><i
                                     class="side-menu__icon fe fe-home"></i><span
@@ -305,6 +331,7 @@
                                 </li>
                             </ul>
                         </li> --}}
+
                         @can('categories.create', 'categories.index')
                             <li class="slide">
                                 <a class="side-menu__item" data-toggle="slide" href="#"><i
@@ -350,16 +377,28 @@
                                     class="side-menu__icon fe fe-shopping-cart"></i><span
                                     class="side-menu__label">Productos</span><i class="angle fa fa-angle-right"></i></a>
                             <ul class="slide-menu">
-                                @can('products.create', 'products.index')
+                                @can('products.create')
                                     <li>
                                         <a href="{{ route('products.create') }}" class="slide-item"><i
                                                 class="side-menu__icon fe fe-plus"></i>Crear</a>
                                     </li>
+                                @endcan
                                     <li>
                                         <a href="{{ route('products.index') }}" class="slide-item"><i
                                                 class="side-menu__icon fe fe-list"></i>Lista</a>
                                     </li>
-                                @endcan
+                                    @can('apartados.index')
+                                    <li>
+                                        <a href="{{ route('apartados.index') }}" class="slide-item">
+                                            <i class=" side-menu__icon far fa-list-alt"></i>Apartados</a>
+                                    </li>
+                                    @endcan
+
+                                    <li>
+                                        <a href="{{ route('misapartados.index') }}" class="slide-item">
+                                            <i class="side-menu__icon fas fa-clipboard-list"></i>Mis apartados</a>
+                                    </li>
+
 
                             </ul>
                         </li>
@@ -374,23 +413,25 @@
                                                 class="side-menu__icon fe fe-plus"></i>Crear</a>
                                     </li>
                                 @endcan
+                                @can('arreglos.index')
                                 <li>
                                     <a href="{{ route('arreglos.index') }}" class="slide-item"><i
                                             class="side-menu__icon fe fe-list"></i>Lista</a>
                                 </li>
+                                @endcan
+                                <li>
+                                    <a href="{{ route('misarreglos.index') }}" class="slide-item"><i
+                                            class="side-menu__icon fe fe-list"></i>Mis arreglos</a>
+                                </li>
 
                             </ul>
                         </li>
-                        @can('users.update', 'users.index', 'users.create')
+                        @can('users.index', 'users.create')
                             <li class="slide">
                                 <a class="side-menu__item" data-toggle="slide" href="#"><i
                                         class="side-menu__icon fe fe-user"></i><span
                                         class="side-menu__label">Usuarios</span><i class="angle fa fa-angle-right"></i></a>
                                 <ul class="slide-menu">
-                                    <li>
-                                        <a href="{{ route('users.create') }}" class="slide-item"><i
-                                                class="side-menu__icon fe fe-plus"></i>Crear</a>
-                                    </li>
                                     <li>
                                         <a href="{{ route('users.index') }}" class="slide-item"><i
                                                 class="side-menu__icon fe fe-list"></i>Lista</a>
@@ -400,23 +441,23 @@
                             </li>
                         @endcan
                         @can('roles.create', 'roles.update', 'roles.index')
-                            <li class="slide">
-                                <a class="side-menu__item" data-toggle="slide" href="#"><i
-                                        class="side-menu__icon fe fe-users"></i><span
-                                        class="side-menu__label">roles</span><i class="angle fa fa-angle-right"></i>
-                                </a>
-                                <ul class="slide-menu">
-                                    <li>
-                                        <a href="{{ route('users.create') }}" class="slide-item"><i
-                                                class="side-menu__icon fe fe-plus"></i>Crear</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('users.index') }}" class="slide-item"><i
-                                                class="side-menu__icon fe fe-list"></i>Lista</a>
-                                    </li>
+                        <li class="slide">
+                            <a class="side-menu__item" data-toggle="slide" href="#"><i
+                                    class="side-menu__icon fe fe-users"></i><span
+                                    class="side-menu__label">roles</span><i class="angle fa fa-angle-right"></i>
+                            </a>
+                            <ul class="slide-menu">
+                                <li>
+                                    <a href="{{ route('roles.create') }}" class="slide-item"><i
+                                            class="side-menu__icon fe fe-plus"></i>Crear</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('roles.index') }}" class="slide-item"><i
+                                            class="side-menu__icon fe fe-list"></i>Lista</a>
+                                </li>
 
-                                </ul>
-                            </li>
+                            </ul>
+                        </li>
                         @endcan
 
 
@@ -436,6 +477,8 @@
                             </ul>
                         </li> --}}
 
+
+
                         <li>
                             <a class="side-menu__item" href="https://themeforest.net/user/sprukosoft/portfolio"><i
                                     class="side-menu__icon fa fa-question-circle"></i><span
@@ -450,197 +493,40 @@
             <div class="app-content ">
                 <div class="side-app">
                     <div class="main-content">
-                        <div class="p-2 d-block d-sm-none navbar-sm-search">
-                            <!-- Form -->
-                            <form class="navbar-search navbar-search-dark form-inline ml-lg-auto">
-                                <div class="form-group mb-0">
-                                    <div class="input-group input-group-alternative">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                        </div><input class="form-control" placeholder="Search" type="text">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
                         <!-- Top navbar -->
                         <nav class="navbar navbar-top  navbar-expand-md navbar-dark" id="navbar-main">
                             <div class="container-fluid">
-                                <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-toggle="sidebar"
-                                    href="#"></a>
+                                <a aria-label="Hide Sidebar" data-toggle="sidebar" href="#"><i
+                                        class="fas fa-bars"></i></a>
 
                                 <!-- Horizontal Navbar -->
-                                <ul class="navbar-nav align-items-center d-none d-xl-block">
-                                    <li class="nav-item dropdown">
-                                        <a aria-expanded="false" aria-haspopup="true"
-                                            class="nav-link pr-md-0 d-none d-lg-block" data-toggle="dropdown" href="#"
-                                            role="button">
-                                            Default Settings <span class="fas fa-caret-down"></span>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-                                            <a class="dropdown-item" href="#"><span>Manage Profile</span></a>
-                                            <a class="dropdown-item" href="#"><span>Themes</span></a>
-                                            <a class="dropdown-item" href="#"><span>Passwords</span></a>
-                                            <a class="dropdown-item" href="#"><span>Payment methods</span></a>
-                                            <a class="dropdown-item" href="#"><span>Other Settings</span></a>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a aria-expanded="false" aria-haspopup="true"
-                                            class="nav-link pr-md-0 d-none d-lg-block" data-toggle="dropdown" href="#"
-                                            role="button">
-                                            Projects <span class="fas fa-caret-down"></span>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-                                            <a class="dropdown-item" href="#"><span>Active</span></a>
-                                            <a class="dropdown-item" href="#"><span>Marketing</span></a>
-                                            <a class="dropdown-item" href="#"><span>Users</span></a>
-                                            <a class="dropdown-item" href="#"><span>Development</span></a>
-                                            <a class="dropdown-item" href="#"><span>Settings</span></a>
-                                        </div>
-                                    </li>
-                                </ul>
 
                                 <!-- Brand -->
-                                <a class="navbar-brand pt-0 d-md-none" href="#">
-                                    <img src="/assets/img/brand/LogoT.png" class="navbar-brand-img" alt="...">
+                                <a class="navbar-brand pt-0 d-md-none" href="{{ route('home') }}">
+                                    <img src="#" class="navbar-brand-img" alt="...">
                                 </a>
-                                <!-- Form -->
-                                <form class="navbar-search navbar-search-dark form-inline mr-3 ml-lg-auto">
-                                    <div class="form-group mb-0">
-                                        <div class="input-group input-group-alternative">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                            </div><input class="form-control" placeholder="Search" type="text">
-                                        </div>
-                                    </div>
-                                </form>
+
                                 <!-- User -->
                                 <ul class="navbar-nav align-items-center ">
-                                    <li class="nav-item d-none d-md-flex">
-                                        <div class="dropdown d-none d-md-flex mt-2 ">
-                                            <a class="nav-link full-screen-link pl-0 pr-0"><i
-                                                    class="fe fe-maximize-2 floating " id="fullscreen-button"></i></a>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item dropdown d-none d-md-flex">
-                                        <a aria-expanded="false" aria-haspopup="true" class="nav-link pr-0"
-                                            data-toggle="dropdown" href="#" role="button">
-                                            <div class="media align-items-center">
-                                                <i class="fe fe-user "></i>
+                                    <!-- Form -->
+                                    <form class="navbar-search navbar-search-dark form-inline mr-3 ml-lg-auto">
+                                        <div class="form-group mb-0">
+                                            <div class="input-group input-group-alternative">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i
+                                                            class="fas fa-search"></i></span>
+                                                </div><input class="form-control" placeholder="Search" type="text">
                                             </div>
-                                        </a>
-                                        <div
-                                            class="dropdown-menu dropdown-menu-lg dropdown-menu-arrow dropdown-menu-right">
-                                            <a class="dropdown-item d-flex" href="#">
-                                                <span class="avatar brround mr-3 align-self-center"> <img
-                                                        src="/assets/img/faces/male/4.jpg" alt="imag"></span>
-                                                <div>
-                                                    <strong>Madeleine Scott</strong> sent you friend request
-                                                    <div class=" mt-2 small text-muted">
-                                                        <span class="btn btn-sm btn-primary">Conform</span>
-                                                        <span class="btn btn-sm btn-outline-primary">Delete</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item d-flex" href="#">
-                                                <span class="avatar brround mr-3 align-self-center"><img
-                                                        src="/assets/img/faces/female/14.jpg" alt="imag"></span>
-                                                <div>
-                                                    <strong>rebica</strong> sent you friend request
-                                                    <div class=" mt-2 small text-muted">
-                                                        <span class="btn btn-sm btn-primary">Conform</span>
-                                                        <span class="btn btn-sm btn-outline-primary">Delete</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item d-flex" href="#">
-                                                <span class="avatar brround mr-3 align-self-center"><img
-                                                        src="/assets/img/faces/male/1.jpg" alt="imag"></span>
-                                                <div>
-                                                    <strong>Devid robott</strong> sent you friend request
-                                                    <div class=" mt-2 small text-muted">
-                                                        <span class="btn btn-sm btn-primary">Conform</span>
-                                                        <span class="btn btn-sm btn-outline-primary">Delete</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <div class="dropdown-divider"></div><a
-                                                class="dropdown-item text-center text-muted-dark" href="#">View all
-                                                Requestes</a>
                                         </div>
-                                    </li>
+                                    </form>
 
-                                    <li class="nav-item dropdown d-none d-md-flex">
-                                        <a aria-expanded="false" aria-haspopup="true" class="nav-link pr-0"
-                                            data-toggle="dropdown" href="#" role="button">
-                                            <div class="media align-items-center">
-                                                <i class="fe fe-mail "></i>
-                                            </div>
-                                        </a>
-                                        <div
-                                            class="dropdown-menu  dropdown-menu-lg dropdown-menu-arrow dropdown-menu-right">
-                                            <a href="#" class="dropdown-item text-center">12 New Messages</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a href="#" class="dropdown-item d-flex">
-                                                <span class="avatar brround mr-3 align-self-center"><img
-                                                        src="/assets/img/faces/male/41.jpg" alt="img"></span>
-                                                <div>
-                                                    <strong>Madeleine</strong> Hey! there I' am available....
-                                                    <div class="small text-muted">3 hours ago</div>
-                                                </div>
-                                            </a>
-                                            <a href="#" class="dropdown-item d-flex">
-                                                <span class="avatar brround mr-3 align-self-center"><img
-                                                        src="/assets/img/faces/female/1.jpg" alt="img"></span>
-                                                <div>
-                                                    <strong>Anthony</strong> New product Launching...
-                                                    <div class="small text-muted">5 hour ago</div>
-                                                </div>
-                                            </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a href="#" class="dropdown-item text-center">See all Messages</a>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item dropdown d-none d-md-flex">
-                                        <a aria-expanded="false" aria-haspopup="true" class="nav-link pr-0"
-                                            data-toggle="dropdown" href="#" role="button">
-                                            <div class="media align-items-center">
-                                                <i class="fe fe-bell f-30 "></i>
-                                            </div>
-                                        </a>
-                                        <div
-                                            class="dropdown-menu dropdown-menu-lg dropdown-menu-arrow dropdown-menu-right">
-                                            <a href="#" class="dropdown-item d-flex">
-                                                <div>
-                                                    <strong>Someone likes our posts.</strong>
-                                                    <div class="small text-muted">3 hours ago</div>
-                                                </div>
-                                            </a>
-                                            <a href="#" class="dropdown-item d-flex">
-                                                <div>
-                                                    <strong> 3 New Comments</strong>
-                                                    <div class="small text-muted">5 hour ago</div>
-                                                </div>
-                                            </a>
-                                            <a href="#" class="dropdown-item d-flex">
-                                                <div>
-                                                    <strong> Server Rebooted.</strong>
-                                                    <div class="small text-muted">45 mintues ago</div>
-                                                </div>
-                                            </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a href="#" class="dropdown-item text-center">View all Notification</a>
-                                        </div>
-                                    </li>
                                     @guest
                                     @else
                                         <li class="nav-item dropdown">
                                             <a aria-expanded="false" aria-haspopup="true" class="nav-link pr-md-0"
                                                 data-toggle="dropdown" href="#" role="button">
                                                 <div class="media align-items-center">
-                                                    <span class="avatar avatar-sm rounded-circle">
-                                                        <img alt="Image placeholder" src="/assets/img/faces/female/32.jpg">
-                                                    </span>
+
                                                     <div class="media-body ml-2 d-none d-lg-block">
                                                         <span class="mb-0 ">{{ Auth::user()->name }}</span>
                                                     </div>
@@ -650,18 +536,11 @@
                                                 <div class=" dropdown-header noti-title">
                                                     <h6 class="text-overflow m-0">Bienvenido!</h6>
                                                 </div>
-                                                <a class="dropdown-item" href="user-profile.html"><i
+                                                <a class="dropdown-item" href="{{route('users.profile.index')}}"><i
                                                         class="ni ni-single-02"></i> <span>Mi perfil</span></a>
-                                                <a class="dropdown-item" href="#"><i class="ni ni-settings-gear-65"></i>
-                                                    <span>Configuraciones</span></a>
-                                                <a class="dropdown-item" href="#"><i class="ni ni-calendar-grid-58"></i>
-                                                    <span>Actividades</span></a>
-                                                <a class="dropdown-item" href="#"><i class="ni ni-support-16"></i>
-                                                    <span>Soporte</span></a>
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" href="{{ route('logout') }}"
-                                                    onclick="event.preventDefault();
-                                                                                                    document.getElementById('logout-form').submit();">
+                                                    onclick="event.preventDefault();  document.getElementById('logout-form').submit();">
                                                     <i class="ni ni-user-run"></i>
                                                     {{ __('Cerrar Sesión') }}
                                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -670,25 +549,24 @@
                                                     </form>
                                                     <span></span>
                                                 </a>
-
-
                                             </div>
                                         </li>
                                     @endguest
+
                                 </ul>
                             </div>
                         </nav>
                         <!-- Top navbar-->
-
+                        <div class="dropdown-divider"></div>
                         <!-- Page content -->
                         <div class="container-fluid pt-8">
                             <!-- dejar -->
                             <div class="page-header mt-0 shadow p-3">
                                 <ol class="breadcrumb mb-sm-0">
-                                    <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
                                     @yield('breadcrumb')
                                 </ol>
-                                <div class="btn-group mb-0">
+                                {{-- <div class="btn-group mb-0">
                                     <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
                                         data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">Actions</button>
@@ -703,7 +581,7 @@
                                         <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>
                                             Settings</a>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                             <!-- dejar -->
 
@@ -746,13 +624,13 @@
                                     <div class="col-xl-6">
                                         <div class="copyright text-center text-xl-left text-muted">
                                             <p class="text-sm font-weight-500">Copyright 2020 © All Rights
-                                                Reserved.Dashboard Template</p>
+                                                Reserved.</p>
                                         </div>
                                     </div>
-                                    <div class="col-xl-6">
+                                    {{-- <div class="col-xl-6">
                                         <p class="float-right text-sm font-weight-500"><a
                                                 href="www.templatespoint.net">Templates Point</a></p>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </footer>
                             <!-- Footer -->
@@ -765,7 +643,8 @@
     </div>
     <!-- Back to top -->
     <a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
-
+    {{-- sweetAlerts Script --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Ansta Scripts -->
     <!-- Core -->
     <script src="/assets/plugins/jquery/dist/jquery.min.js"></script>

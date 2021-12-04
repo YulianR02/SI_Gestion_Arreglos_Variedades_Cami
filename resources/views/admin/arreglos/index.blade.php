@@ -11,9 +11,12 @@
                     <h2 class="mb-0">Sección de arreglos</h2>
                 </div>
                 <div class="card-tools">
-                    <a type="button" class="btn btn-tool" href="{{ route('arreglos.create') }}">
-                        <h3 class="card-title"><i class="fas fa-plus"></i> Agregar </h3>
-                    </a>
+                    @can('arreglos.create')
+                        <a type="button" class="btn btn-tool" href="{{ route('arreglos.create') }}">
+                            <h3 class="card-title"><i class="fas fa-plus"></i> Agregar </h3>
+                        </a>
+                    @endcan
+
 
                 </div>
                 <div class="dropdown-divider"></div>
@@ -23,9 +26,9 @@
                             <thead>
                                 <tr style="text-align: center">
                                     <th class="wd-15p"><strong>Cliente</strong></th>
+                                    <th class="wd-15p">Estado</th>
                                     <th class="wd-15p">Fecha Realizacion</th>
                                     <th class="wd-15p">Fecha Entrega</th>
-                                    <th class="wd-15p">Estado</th>
                                     <th class="wd-15p">Observar</th>
                                     <th class="wd-15p">Editar</th>
                                     <th class="wd-15p">Eliminar</th>
@@ -34,32 +37,37 @@
 
                             <tbody>
                                 @foreach ($arreglos as $arreglo)
-                                    {{-- @if ($arreglo->id == 1 || $arreglo->estado == 2) --}}
                                     <tr class="table-Light" style="text-align: center">
-
-                                        <!--<th  >$rol->NombreRol}}</th>-->
                                         <th>{{ $arreglo->user->name }}</th>
-                                        <th>{{ $arreglo->created_at }}</th>
-                                        <th>{{ $arreglo->FechaEntrega }}</th>
-                                        <th>{{ $arreglo->EstadoArreglo }}</th>
+                                        @if ($arreglo->EstadoArreglo == 'Terminado')
+                                            <th class="table-success">{{ $arreglo->EstadoArreglo }}</th>
+                                        @elseif ($arreglo->EstadoArreglo == 'En Proceso')
+                                            <th class="table-warning">{{ $arreglo->EstadoArreglo }}</th>
+                                        @else
+                                            <th class="table-primary">{{ $arreglo->EstadoArreglo }}</th>
+                                        @endif
+                                        <th>{{date('d-m-Y',strtotime($arreglo->created_at))  }}</th>
+                                        <th>{{date('d-m-Y',strtotime($arreglo->fechaEntrega)) }}</th>
                                         <th>
                                             <a class="btn btn-info" href="{{ route('arreglos.show', $arreglo->id) }}">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                         </th>
-                                        <th>
-                                            <a class="btn btn-info" href="{{ route('arreglos.edit', $arreglo->id) }}">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                        </th>
-                                        <th>
-                                            {!! Form::open(['route' => ['arreglos.destroy', $arreglo->id], 'method' => 'DELETE']) !!}
-                                            <button class="btn btn-danger">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                            {!! Form::close() !!}
-                                        </th>
-
+                                            <th>
+                                                <a class="btn btn-info"
+                                                    href="{{ route('arreglos.edit', $arreglo->id) }}">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            </th>
+                                            <th>
+                                                <form action="{{ route('arreglos.destroy', $arreglo->id) }}"
+                                                    class="deleteArreglos" method="POST">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger"><i
+                                                            class="fas fa-trash-alt"></i></button>
+                                                </form>
+                                            </th>
                                     </tr>
                                     {{-- @endif --}}
                                 @endforeach
@@ -72,4 +80,52 @@
         </div>
     </div>
 
+@endsection
+@section('scripts')
+    @if (session('delete') == 'Ok')
+        <script>
+            Swal.fire(
+                '¡Eliminado!',
+                'El arreglo ha sido eliminado.',
+                'success'
+
+            )
+        </script>
+    @endif
+
+    <script>
+        $('.deleteArreglos').submit(function(e) {
+            e.preventDefault();
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: '¿Estas seguro?',
+                text: "¡No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: '¡Sí, bórralo!',
+                cancelButtonText: '¡No, cancelar!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelado',
+                        'Tu archivo imaginario está seguro :)',
+                        'error'
+                    )
+                }
+            })
+        })
+    </script>
 @endsection

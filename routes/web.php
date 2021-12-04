@@ -64,9 +64,19 @@ Route::resource('admin/subcategories','SubcategoryController')->names('subcatego
 
 Route::resource('admin/arreglos','ArregloController')->names('arreglos');
 
+Route::resource('user/misarreglos','misArreglosController' )->names('misarreglos');
+
 Route::resource('admin/products','ProductController')->names('products');
 
+Route::resource('admin/apartados','ApartadoController')->names('apartados');
+
+Route::resource('user/misapartadps','misApartadosController' )->names('misapartados');
+
 Route::resource('admin/users','UserController')->names('users');
+
+Route::resource('admin/roles', RoleController::class)->names('roles');
+
+Route::resource('user/profile','ProfileUserController' )->names('users.profile');
 
 // Route::post('/comment/store','CommetController@store')->name('comment.add');
 

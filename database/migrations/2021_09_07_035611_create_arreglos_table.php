@@ -19,7 +19,7 @@ class CreateArreglosTable extends Migration
             $table->mediumText('DescripcionArreglo');
             $table->decimal('ValorArreglo');
             $table->date('FechaEntrega');
-            $table->enum('EstadoArreglo',['Terminado','En Proceso'])->default('En Proceso');
+            $table->enum('EstadoArreglo',['Terminado','En Proceso','Recibido'])->default('Recibido');
             $table->string('NombreReclama');
             $table->bigInteger('TelefonoReclama');
             $table->softDeletes();

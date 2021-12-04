@@ -3,12 +3,26 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Apartados extends Model
+class Apartado extends Model
 {
-    //Creacion modelo Apartado
-   protected $table = "apartados";
-   protected $primaryKey = "IdApartado";
-   public $timestamps = false;
+    //creation model post
+    use SoftDeletes;
 
+    protected $fillable = [
+        'user_id', 'product_id', 'cantidadProducto', 'estadoApartado'
+    ];
+
+    protected $dates = ['deleted_at'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

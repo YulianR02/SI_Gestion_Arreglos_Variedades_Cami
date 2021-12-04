@@ -13,6 +13,10 @@ class SubcategoryController extends Controller
     public function __construct()
     {
         $this->middleware(['auth','verified']);
+        $this->middleware('can:subcategories.index');
+        $this->middleware('can:subcategories.create')->only('create','store');
+        $this->middleware('can:subcategories.edit')->only('edit','updated');
+        $this->middleware('can:subcategories.destroy');
     }
     public function index()
     {
@@ -39,7 +43,7 @@ class SubcategoryController extends Controller
         $subcategory->name = e($request->name);
         $subcategory->slug = Str::slug($request->name);
         $subcategory->save();
-        return redirect()->route('subcategories.index')->with('info','SubCategoria Creada Exitosamente');
+        return redirect()->route('subcategories.index')->with('info','Subcategoria creada exitosamente');
     }
 
     public function show(Subcategory $subcategory)
@@ -66,7 +70,7 @@ class SubcategoryController extends Controller
         $subcategory->name = e($request->name);
         $subcategory->slug = Str::slug($request->name);
         $subcategory->save();
-        return redirect()->route('subcategories.index')->with('info','SubCategoria Actualizado Exitosamente');
+        return redirect()->route('subcategories.index')->with('info','Subcategoria actualizada exitosamente');
 
     }
 
@@ -74,7 +78,7 @@ class SubcategoryController extends Controller
     {
         //create for delete subcategories
         $subcategory = Subcategory::findOrFail($id)->delete();
-        return back()->with('info','SubCategoria Eliminada Exitosamente');
+        return back()->with('delete','Ok');
 
     }
 }

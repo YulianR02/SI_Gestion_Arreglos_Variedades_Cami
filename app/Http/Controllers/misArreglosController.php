@@ -2,19 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Producto;
+use App\Arreglo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class ProductoController extends Controller
+class misArreglosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware(['auth','verified']);
+        $this->middleware(['can:misarreglos.index',
+                           ]);
+    }
+
     public function index()
     {
-        //
+        $id = Auth::id();
+        $misArreglos = Arreglo::where('user_id', $id)->paginate(15);
+        // dd($id);
+        return view('admin.arreglos.misArreglos', \compact('misArreglos'));
     }
 
     /**
@@ -41,21 +47,22 @@ class ProductoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Producto  $producto
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Producto $producto)
+    public function show($id)
     {
-        //
+        $arreglo = Arreglo::where('id',$id)->with('user','image')->firstOrFail();
+        return view('admin.arreglos.show', compact('arreglo'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Producto  $producto
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Producto $producto)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +71,10 @@ class ProductoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Producto  $producto
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Producto $producto)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +82,10 @@ class ProductoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Producto  $producto
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Producto $producto)
+    public function destroy($id)
     {
         //
     }

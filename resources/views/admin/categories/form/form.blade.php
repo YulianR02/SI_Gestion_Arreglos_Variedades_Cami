@@ -5,7 +5,7 @@
         <div class="alert alert-warning">{{ $message }}</div>
     @enderror
 </div>
-<div class="form-group col">
+{{-- <div class="form-group col">
     {!! Form::label('category_id', 'Imagen *') !!}
     <div class="custom-file">
         <input type="file" class="custom-file-input" value="{{old('image')}}" name="image" lang="es">
@@ -17,7 +17,7 @@
     @error('image')
         <div class="alert alert-warning">{{ $message }}</div>
     @enderror
-</div>
+</div> --}}
 <div class="form-group">
     {!! Form::label('module', 'Modulo *') !!}
     {!! Form::select('module', getModulesArray(), null, ['class' => 'form-control']) !!}
@@ -26,7 +26,7 @@
     @enderror
 
 </div>
-<div class="form-group">
+{{-- <div class="form-group">
     {!! Form::label('front', '¿La categoría estará en la portada? *') !!}
     <div class="form-check">
         <input class="form-check-input" type="radio" name="front" id="exampleRadios1" value="YES">
@@ -42,5 +42,5 @@
     </div>
     @error('front')
         <div class="alert alert-warning">{{ $message }}</div>
-    @enderror
+    @enderror --}}
 </div>

@@ -14,6 +14,11 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware(['auth','verified']);
+        $this->middleware(['can:users.index',
+                           'can:users.create',
+                           'can:users.edit',
+                           'can:users.destroy']);
+
     }
 
     public function index()
@@ -22,6 +27,13 @@ class UserController extends Controller
         $users = User::orderBy('id','DESC')->paginate(15);
         return view('admin.users.index', \compact('users'));
     }
+
+    public function profile()
+    {
+
+        return view('admin.users.profile');
+    }
+
 
     public function create()
     {
@@ -58,13 +70,13 @@ class UserController extends Controller
     {
         $roles = Role::all();
 
-        return view('admin.users.edit' , compact('user','roles'));
+        return view('admin.users.role' , compact('user','roles'));
     }
 
     public function update(Request $request, User $user)
     {
         $user->roles()->sync($request->roles);
-        return redirect()->route('users.edit', $user)->with('info','Se asignó el rol correctamente.');
+        return redirect()->route('users.index', $user)->with('info','Se asignó el rol correctamente.');
     }
 
 
@@ -72,7 +84,7 @@ class UserController extends Controller
     {
         //create for delete products
         $users = User::findOrFail($id)->delete();
-        return back()->with('info','Usuario Eliminada Exitosamente');
+        return back()->with('delete','Ok');
 
     }
 }

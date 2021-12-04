@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="card shadow">
                 <div class="card-header">
-                    <h2 class="mb-0">Data Table</h2>
+                    <h2 class="mb-0">Sección de clientes</h2>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -41,11 +41,16 @@
                                             </a>
                                         </td>
                                         <td width="10px">
-                                            {!! Form::open(['route' => ['users.destroy', $user->id], 'method' => 'DELETE']) !!}
-                                            <button class="btn btn-danger">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                            {!! Form::close() !!}
+                                            <form action="{{ route('users.destroy', $user->id) }}"
+                                                class="deleteUser" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger"><i
+                                                        class="fas fa-trash-alt"></i></button>
+                                            </form>
+
+
+
                                         </td>
 
 
@@ -85,28 +90,53 @@
     </div>
 
 @endsection
+@section('scripts')
+    @if (session('delete') == 'Ok')
+        <script>
+            Swal.fire(
+                '¡Eliminado!',
+                'El Usuario ha sido inactivado.',
+                'success'
 
-@section('scripts')}
-<script>
-    $(function(e) {
-        $('#example').DataTable();
+            )
+        </script>
+    @endif
 
-        var table = $('#example1').DataTable();
-        $('button').click(function() {
-            var data = table.$('input, select').serialize();
-            alert(
-                "The following data would have been submitted to the server: \n\n" +
-                data.substr(0, 120) + '...'
-            );
-            return false;
-        });
-        $('#example2').DataTable({
-            "scrollY": "200px",
-            "scrollCollapse": true,
-            "paging": false
-        });
-    });
-</script>
+    <script>
+        $('.deleteUser').submit(function(e) {
+            e.preventDefault();
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
 
+            swalWithBootstrapButtons.fire({
+                title: '¿Estas seguro?',
+                text: "¡No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: '¡Sí, bórralo!',
+                cancelButtonText: '¡No, cancelar!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    this.submit();
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelado',
+                        'Tu acción imaginaria está segura :)',
+                        'error'
+                    )
+                }
+            })
+        })
+    </script>
 @endsection
 

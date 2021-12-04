@@ -85,6 +85,11 @@
                                 <label for="size">Categoría</label>
                                 <p> {{ $product->subcategory->category->name }}</p>
                             </div>
+                            <div class="product-count">
+                                <a class="btn btn-success" href="{{ route('apartados.create', $product->id) }}">
+                                    $ Apartar</a>
+                            </li>
+                            </div>
                         </div>
                     </div>
                 </div>

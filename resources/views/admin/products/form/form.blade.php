@@ -74,7 +74,7 @@
     <div class="form-group col">
         {!! Form::label('images', 'Imagenes') !!}
         <div class="custom-file">
-            <input type="file" class="custom-file-input" name="images[]" lang="es" id="images[]" multiple
+            <input type="file" class="custom-file-input" name="images[]"  id="images[]" multiple
                 accept="image/*">
             <label class="custom-file-label" name="images">Seleccionar Archivos</label>
         </div>
@@ -107,25 +107,21 @@
         <div class="alert alert-warning">{{ $message }}</div>
     @enderror
 </div>
-<div class="form-group">
+{{-- <div class="form-group">
     {!! Form::label('status', 'Estado de la publicación: ') !!}
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="status" id="rdEstatus1" value="PUBLISHED">
         <label class="form-check-label" for="status">Publicado</label>
     </div>
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="status" id="rdEstatus0" value="DRAFT">
+        <input class="form-check-input" type="radio" name="status" id="rdEstatus0" value="DRAFT" checked>
         <label class="form-check-label" for="status">Borrador</label>
     </div>
     @error('status')
         <div class="alert alert-warning">{{ $message }}</div>
     @enderror
-</div>
+</div> --}}
 @section('scripts')
-    {!! Html::script('vendor/ckeditorbasic/ckeditor.js') !!}
-    <script>
-        CKEDITOR.replace('longDescription');
-    </script>
     <script>
         $(function() {
             $('#price').on('input', function() {

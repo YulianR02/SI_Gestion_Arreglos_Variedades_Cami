@@ -15,11 +15,11 @@ return [
 
     'accepted' => 'El :attribute se debe aceptar.',
     'active_url' => 'El :attribute no es una URL valida.',
-    'after' => 'El :attribute debe ser una fecha posterior a :date.',
+    'after' => 'La :attribute debe ser una fecha posterior a :date.',
     'after_or_equal' => 'El :attribute debe ser una fecha posterior o igual a :date.',
     'alpha' => 'El :attribute solo debe contener letras.',
-    'alpha_dash' => 'El :attribute may only contain letters, numbers, dashes and underscores.',
-    'alpha_num' => 'El :attribute may only contain letters and numbers.',
+    'alpha_dash' => 'El :attribute solo puede contener letras, números, guiones y guiones bajos.',
+    'alpha_num' => 'El :attribute solo puede contener letras y números.',
     'array' => 'El :attribute must be an array.',
     'before' => 'El :attribute must be a date before :date.',
     'before_or_equal' => 'El :attribute must be a date before or equal to :date.',
@@ -149,5 +149,12 @@ return [
     */
 
     'attributes' => [],
+
+    'values' => [
+        'birthday' =>[
+            'today' => 'hoy'
+        ]
+
+    ],
 
 ];

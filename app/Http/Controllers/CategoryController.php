@@ -13,6 +13,7 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->middleware(['auth','verified']);
+        $this->middleware('can:categories.index');
     }
     public function index()
     {
@@ -32,26 +33,26 @@ class CategoryController extends Controller
         //create register categories
         $request->validate([
             'name'=>'required|unique:categories|min:4|max:20',
-            // 'module'=>'required',
-            'image'=>'required|image',
+            'module'=>'required',
+            // 'image'=>'required|image',
             // 'front  '=>'required',
         ]);
-        if($request->hasFile('image')){
-            $image=$request->file('image');
-            $name = time().$image->getClientOriginalName();
-            $ruta = public_path().'/images/';
-            $image->move($ruta,$name);
-            $urlimage['url']='/images/'.$name;
-        }
+        // if($request->hasFile('image')){
+        //     $image=$request->file('image');
+        //     $name = time().$image->getClientOriginalName();
+        //     $ruta = public_path().'/images/';
+        //     $image->move($ruta,$name);
+        //     $urlimage['url']='/images/'.$name;
+        // }
         $category = new Category;
         $category->name = e($request->name);
         $category->module = e($request->module);
         $category->slug = Str::slug($request->name);
-        $category->front = e($request->front    );
+        // $category->front = e($request->front    );
         $category->save();
-        if($request->hasFile('image')){
-            $category->image()->create($urlimage);
-        }
+        // if($request->hasFile('image')){
+        //     $category->image()->create($urlimage);
+        // }
         return redirect()->route('categories.index')->with('info','Categoria Creada Exitosamente');
     }
 
@@ -79,29 +80,29 @@ class CategoryController extends Controller
         //create update for categories
         $request->validate([
             'name'=>'required|min:4|max:20',
-            // 'module'=>'required',
-            'image'=>'required|image',
+            'module'=>'required',
+            // 'image'=>'required|image',
             // 'front  '=>'required',
         ]);
-        if($request->hasFile('image')){
-            $image=$request->file('image');
-            $name = time().$image->getClientOriginalName();
-            $ruta = public_path().'/images/';
-            $image->move($ruta,$name);
-            $urlimage['url']='/images/'.$name;
-        }
+        // if($request->hasFile('image')){
+        //     $image=$request->file('image');
+        //     $name = time().$image->getClientOriginalName();
+        //     $ruta = public_path().'/images/';
+        //     $image->move($ruta,$name);
+        //     $urlimage['url']='/images/'.$name;
+        // }
         $category = Category::findOrFail($id);
         $category->name = e($request->name);
         $category->module = e($request->module);
         $category->slug = Str::slug($request->name);
-        $category->front     = e($request->front    );
-        if($request->hasFile('image')){
-            $category->image()->delete();
-        }
+        // $category->front     = e($request->front    );
+        // if($request->hasFile('image')){
+        //     $category->image()->delete();
+        // }
         $category->save();
-        if($request->hasFile('image')){
-            $category->image()->create($urlimage);
-        }
+        // if($request->hasFile('image')){
+        //     $category->image()->create($urlimage);
+        // }
         return redirect()->route('categories.index')->with('info','Categoria Actualizado Exitosamente');
 
     }
@@ -111,7 +112,7 @@ class CategoryController extends Controller
 
         //create for delete categories
         $category = Category::findOrFail($id)->delete();
-        return back()->with('info','Categoria Eliminada Exitosamente');
+        return back()->with('delete','Ok');
 
     }
 }

@@ -8,11 +8,14 @@ use Illuminate\Http\Request;
 
 class ArregloController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware(['auth','verified']);
+        $this->middleware('can:arreglos.index');
+        $this->middleware('can:arreglos.create')->only('create');
+        $this->middleware('can:arreglos.edit')->only('edit','update');
+        $this->middleware('can:arreglos.destroy')->only('destroy');
+    }
     public function index()
     {
         $arreglos = Arreglo::orderBy('id','DESC')->paginate(15);
@@ -33,9 +36,9 @@ class ArregloController extends Controller
             'DescripcionArreglo'=>'required|min:10',
             'user_id'=>'required|integer',
             'ValorArreglo'=>'required|numeric',
-            'FechaEntrega'=>'required',
+            'FechaEntrega'=>'required|after:today',
             // 'EstadoArreglo'=>'required',
-            'NombreReclama'=>'required|min:4|max:30|alpha',
+            'NombreReclama'=>'required|min:4|max:50',
             'TelefonoReclama'=>'required|numeric',
             'image'=>'image|required',
 
@@ -74,7 +77,7 @@ class ArregloController extends Controller
     public function edit( $id)
     {
         $arreglo = Arreglo::where('id',$id)->firstOrFail();
-        $usuarios = User::orderBy('name','ASC')->pluck('name');
+        $usuarios = User::orderBy('name','ASC')->pluck('name','id');
         return view('admin.arreglos.edit', \compact('arreglo','usuarios'));
     }
 
@@ -88,9 +91,9 @@ class ArregloController extends Controller
             'ValorArreglo'=>'required|numeric',
             'FechaEntrega'=>'required',
             // 'EstadoArreglo'=>'required',
-            'NombreReclama'=>'required|min:4|max:30|alpha',
+            'NombreReclama'=>'required|min:4|max:30',
             'TelefonoReclama'=>'required|numeric',
-            'image'=>'image|required',
+            // 'image'=>'image|required',
 
         ]);
         if($request->hasFile('image')){
@@ -118,6 +121,6 @@ class ArregloController extends Controller
     public function destroy( $id)
     {
         $arreglo = Arreglo::findOrFail($id)->delete();
-        return back()->with('info','Arreglo Eliminada Exitosamente');
+        return back()->with('delete','Ok');
     }
 }

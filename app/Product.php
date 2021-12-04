@@ -13,9 +13,13 @@ class Product extends Model
     //Creation del model de sub categories
     protected $fillable =[
         'user_id','subcategory_id','name','slug','stock','quantity','actualPrice',
-        'previousPrice','discountRate','shortDescription','longDescription','state','status'
+        'previousPrice','discountRate','shortDescription','longDescription','state'
     ];
     protected $dates = ['deleted_at'];
+
+    public function apartados(){
+        return $this->hasMany(Apartado::class);
+    }
 
     public function images(){
         return $this->morphMany('App\Image','imageable');

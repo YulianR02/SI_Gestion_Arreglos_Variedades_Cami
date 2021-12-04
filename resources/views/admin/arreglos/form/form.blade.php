@@ -1,11 +1,23 @@
 <div class="form-group">
-    <div class="form-group col">
-        {!! Form::label('user_id', 'Clientes') !!}
-        {!! Form::select('user_id', $usuarios, null, ['class' => 'form-control']) !!}
-        @error('user_id')
-            <div class="alert alert-warning">{{ $message }}</div>
-        @enderror
-    </div>
+    @if (@Auth::user()->hasRole('Administrador'))
+        <div class="form-group col">
+            {!! Form::label('user_id', 'Clientes') !!}
+            {!! Form::select('user_id', $usuarios, null, ['class' => 'form-control']) !!}
+            @error('user_id')
+                <div class="alert alert-warning">{{ $message }}</div>
+            @enderror
+        </div>
+    @elseif (@Auth::user()->hasRole('Cliente'))
+        <div class="form-group col">
+            {!! Form::label('user_id', 'Clientes') !!}
+            {!! Form::select('user_id', $usuarios, null, ['class' => 'form-control', 'readonly'=>'true']) !!}
+            @error('user_id')
+                <div class="alert alert-warning">{{ $message }}</div>
+            @enderror
+        </div>
+
+    @endif
+
     <div class="form-group col">
         {!! Form::label('Imagen') !!}
         <div class="custom-file">
@@ -41,7 +53,7 @@
     <div class="form-group col">
         {!! Form::label('FechaEntrega', 'Fecha de Entrega') !!}
         <div class="input-group">
-            {!! Form::date('FechaEntrega', null, ['class' => 'form-control']) !!}
+            {!! Form::date('FechaEntrega', null, ['class' => 'form-control', 'min' => '22-11-2021']) !!}
         </div>
         @error('FechaEntrega')
             <div class="alert alert-warning">{{ $message }}</div>
@@ -57,13 +69,19 @@
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="EstadoArreglo" id="exampleRadios2" value="En Proceso"
-                checked>
+            <input class="form-check-input" type="radio" name="EstadoArreglo" id="exampleRadios2" value="En Proceso">
             <label class="form-check-label" for="exampleRadios2">
                 En proceso
             </label>
         </div>
-        @error('FechaEntrega')
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="EstadoArreglo" id="exampleRadios3" value="Recibido"
+                checked>
+            <label class="form-check-label" for="exampleRadios3">
+                Recibido
+            </label>
+        </div>
+        @error('Estado')
             <div class="alert alert-warning">{{ $message }}</div>
         @enderror
 
@@ -91,9 +109,4 @@
 
         </div>
     </div>
-    @section('scripts')
-        {!! Html::script('vendor/ckeditor/ckeditor.js') !!}
-        <script>
-            CKEDITOR.replace('body');
-        </script>
-    @endsection
+

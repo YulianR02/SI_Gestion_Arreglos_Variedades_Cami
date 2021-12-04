@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Image;
 use App\Product;
 use App\Subcategory;
 use Illuminate\Http\Request;
@@ -13,15 +14,23 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware(['auth','verified']);
+        $this->middleware('can:products.index');
+        $this->middleware('can:products.create')->only('create','store');
+        $this->middleware('can:products.edit')->only('edit','update');
+        $this->middleware('can:products.destroy')->only('destroy');
     }
 
     public function index()
     {
         //Creation list of products
-        $products = Product::orderBy('id','DESC')->paginate(15);
+        $products =Product::orderBy('id','DESC')->with('images')->get()->take(6);
         return view('admin.products.index', \compact('products'));
     }
 
+    public function catalogo()
+    {
+
+    }
     public function create()
     {
         //create view for create
@@ -41,11 +50,11 @@ class ProductController extends Controller
             'actualPrice'=>'required|numeric',
             'previousPrice'=>'required|numeric',
             'discountRate'=>'required|numeric',
-            'images'=>'required',
+            'images.*'=>'required|image',
             'shortDescription'=>'required|max:50',
             'longDescription'=>'required|min:60',
             'state'=>'required',
-            'status'=>'required',
+            // 'status'=>'required',
         ]);
 
         $urlimages=[];
@@ -71,7 +80,7 @@ class ProductController extends Controller
         $product->shortDescription = e($request->shortDescription);
         $product->longDescription = e($request->longDescription);
         $product->state = e($request->state);
-        $product->status = e($request->status);
+        // $product->status = e($request->status);
         $product->save();
         $product->images()->createMany($urlimages);
         return redirect()->route('products.index')->with('info','Producto Creado Exitosamente');
@@ -103,11 +112,11 @@ class ProductController extends Controller
             'actualPrice'=>'required|numeric',
             'previousPrice'=>'required|numeric',
             'discountRate'=>'required|numeric',
-            'images'=>'required',
+            // 'images'=>'required',
             'shortDescription'=>'required|max:50',
             'longDescription'=>'required|min:60',
             'state'=>'required',
-            'status'=>'required',
+            // 'status'=>'required',
         ]);
         $urlimages=[];
         if($request->hasFile('images')){
@@ -132,7 +141,7 @@ class ProductController extends Controller
         $product->shortDescription = e($request->shortDescription);
         $product->longDescription = e($request->longDescription);
         $product->state = e($request->state);
-        $product->status = e($request->status);
+        // $product->status = e($request->status);
         $product->save();
 
         if($request->hasFile('images')){
@@ -146,7 +155,7 @@ class ProductController extends Controller
     {
         //create for delete products
         $product = Product::findOrFail($id)->delete();
-        return back()->with('info','producto Eliminada Exitosamente');
+        return back()->with('delete','Ok');
 
     }
 }

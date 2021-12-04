@@ -51,7 +51,7 @@
           </div>
 	</div>
 	<div class="card-footer">
-      <a class="btn btn-primary" href="{{route('arreglos.index')}}">Regresar</a>
+      <a class="btn btn-primary" href="{{route('home')}}">Regresar</a>
     </div>
   </div>
 @endsection
