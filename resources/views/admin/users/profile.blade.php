@@ -121,18 +121,6 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td>
-                                                                <strong>Estado :</strong>
-                                                                @if (@Auth::user()->deleted_at == ' ')
-                                                                    <div class="alert alert-success" role="alert">
-                                                                        ACTIVO
-                                                                    </div>
-                                                                @else
-                                                                    <div class="alert alert-danger" role="alert">
-                                                                        INACTIVO
-                                                                    </div>
-                                                                @endif
-                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
