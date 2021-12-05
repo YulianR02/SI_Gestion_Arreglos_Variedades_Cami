@@ -72,7 +72,9 @@
 
 
         </div>
+
         <div class="wrap-input100 validate-input" data-validate="Password is required">
+
             <input id="password" type="password" class="input100" @error('password') is-invalid @enderror"
                 name="password" required autocomplete="current-password">
 
@@ -81,6 +83,7 @@
         </div>
 
         <div class="flex-sb-m w-full p-t-3 p-b-32">
+
             <div class="contact100-form-checkbox">
                 <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember" id="remember"
                     {{ old('remember') ? 'checked' : '' }}>
@@ -90,19 +93,15 @@
             </div>
             <div>
                 @if (Route::has('password.request'))
-                    <a href="{{ route('register') }}" class="txt1">
-                        Crear una cuenta
-                    </a>
-                @endif
-            </div>
-
-            <div>
-                @if (Route::has('password.request'))
                     <a href="{{ route('password.request') }}" class="txt1">
                         Has olvidado tu contraseña?
                     </a>
                 @endif
             </div>
+            <div>
+                <button class="btn  btn-primary" type="button" onclick="mostrarContrasena()">Mostrar contraseña</button>
+            </div>
+
         </div>
 
 
@@ -111,10 +110,29 @@
                 Ingresar
             </button>
         </div>
+        <br>
+        <div class="container-login100-form-btn">
+            <button >
+                @if (Route::has('password.request'))
+                    <a href="{{ route('register') }}" class="txt1">
+                        Crear una cuenta
+                    </a>
+                @endif
+            </button>
+        </div>
 
     </form>
-
-
-
+@endsection
+@section('js')
+<script>
+    function mostrarContrasena(){
+        var tipo = document.getElementById("password");
+        if(tipo.type == "password"){
+            tipo.type = "text";
+        }else{
+            tipo.type = "password";
+        }
+    }
+  </script>
 
 @endsection

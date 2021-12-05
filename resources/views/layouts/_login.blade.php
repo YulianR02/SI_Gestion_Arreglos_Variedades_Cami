@@ -60,6 +60,7 @@
     {!! Html::script('/v18/vendor/countdowntime/countdowntime.js') !!}
     <!--===============================================================================================-->
     {!! Html::script('/v18/js/main.js') !!}
+    @yield('js')
 
 </body>
 

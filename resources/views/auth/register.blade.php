@@ -95,6 +95,15 @@
             <span class="focus-input100"></span>
             <span class="label-input100">Confirmacion de Contraseña</span>
         </div>
+
+        <div class="contact100-form-checkbox">
+            <input class="input-checkbox100" id="ckb1" type="checkbox" name="confirm" id="confirm"
+                {{ old('remember') ? 'checked' : '' }} >
+            <label class="label-checkbox100" for="ckb1">
+                Acepto politicas y condiciones sobre tratamiento de datos.
+            </label>
+        </div>
+        <hr>
         <div class="container-login100-form-btn">
             <button class="login100-form-btn">
                 Crear Cuenta
